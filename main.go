@@ -52,15 +52,27 @@ func main() {
 
 	// fmt.Printf("go list output:\n%s\n", string(output))
 
-	cmd := exec.Command("go", "get", "-u", "./...")
+	cmdGet := exec.Command("go", "get", "-u", "./...")
 
-	cmd.Dir = os.Args[1]
+	cmdGet.Dir = os.Args[1]
 
-	output, err := cmd.CombinedOutput()
+	outputGet, err := cmdGet.CombinedOutput()
 	if err != nil {
 		fmt.Printf("Error running go get: %v\n", err)
 		return
 	}
 
-	fmt.Printf("go get -u ./...:\n%s\n", string(output))
+	fmt.Printf("go get -u ./...\n%s\n", string(outputGet))
+
+	cmdMod := exec.Command("go", "mod", "tidy")
+
+	cmdMod.Dir = os.Args[1]
+
+	outputMod, err := cmdMod.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error running go mod tidy: %v\n", err)
+		return
+	}
+
+	fmt.Printf("go mod tidy\n%s\n", string(outputMod))
 }
