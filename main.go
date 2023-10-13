@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"golang.org/x/mod/modfile"
+
+	"os/exec"
 )
 
 func main() {
@@ -33,4 +35,22 @@ func main() {
 	for _, replace := range modFile.Replace {
 		fmt.Printf("Old: %s New: %s\n", replace.Old.Path, replace.New.Path)
 	}
+
+	cmd := exec.Command("go", "list", "-m", "-u", "all")
+
+	cmdDir, err := os.Getwd()
+	if err != nil {
+		fmt.Printf("Error getting current working directory: %v\n", err)
+		return
+	}
+
+	cmd.Dir = cmdDir
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error running go list: %v\n", err)
+		return
+	}
+
+	fmt.Printf("go list output:\n%s\n", string(output))
 }
