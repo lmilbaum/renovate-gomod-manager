@@ -1,4 +1,7 @@
 {
 	"name": "renovate-gomod-manager",
-	"image": "mcr.microsoft.com/devcontainers/go:0-1.19-bullseye"
+	"image": "mcr.microsoft.com/devcontainers/go:0-1.19-bullseye",
+    "mounts": [
+        "source=${localEnv:HOME}/repos/github.com/lmilbaum/crc-cloud,target=/workspace,type=bind,consistency=cached"
+    ]
 }

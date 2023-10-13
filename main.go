@@ -54,17 +54,11 @@ func main() {
 
 	cmd := exec.Command("go", "get", "-u", "./...")
 
-	cmdDir, err := os.Getwd()
-	if err != nil {
-		fmt.Printf("Error getting current working directory: %v\n", err)
-		return
-	}
-
-	cmd.Dir = cmdDir
+	cmd.Dir = os.Args[1]
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("Error running go list: %v\n", err)
+		fmt.Printf("Error running go get: %v\n", err)
 		return
 	}
 

@@ -8,4 +8,4 @@ run:
 
 .PHONY: go-run
 go-run:
-	go run main.go
+	go run main.go /workspace
