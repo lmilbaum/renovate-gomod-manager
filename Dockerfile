@@ -1,5 +1,5 @@
-FROM python
+FROM golang:1.21.3
 
-COPY renovate-gomod-manager/main.py ./
+COPY main.go ./
 
-CMD [ "./main.py" ]
+CMD [ "go", "run", "./main.go" ]
