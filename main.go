@@ -7,14 +7,18 @@ import (
 	"os/exec"
 )
 
-func main() {
-	// goModPath := "go.mod"
+func file_exists(file string) (bool, error) {
 
-	// data, err := os.ReadFile(goModPath)
-	// if err != nil {
-	// 	fmt.Printf("Error reading go.mod file: %v\n", err)
-	// 	return
-	// }
+	_, err := os.ReadFile(file)
+	if err != nil {
+		fmt.Printf("Error reading %s file: %v\n", file, err)
+		return false, err
+	}
+	return true, nil
+
+}
+
+func main() {
 
 	// modFile, err := modfile.Parse(goModPath, data, nil)
 	// if err != nil {
@@ -51,6 +55,11 @@ func main() {
 	// }
 
 	// fmt.Printf("go list output:\n%s\n", string(output))
+
+	_, err := file_exists("/workspace/go.sum")
+	if err != nil {
+		return
+	}
 
 	cmdGet := exec.Command("go", "get", "-u", "./...")
 
