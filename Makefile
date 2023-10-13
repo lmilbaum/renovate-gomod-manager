@@ -4,4 +4,8 @@ build:
 
 .PHONY: run
 run:
-	docker run -v /Users/lmilbaum/repos/github.com/lmilbaum/colima:/workspace -it gomod-manager 
+	docker run -v /Users/lmilbaum/repos/github.com/lmilbaum/colima:/workspace -it gomod-manager
+
+.PHONY: go-run
+go-run:
+	go run main.go
