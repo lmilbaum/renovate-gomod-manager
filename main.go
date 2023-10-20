@@ -3,9 +3,33 @@ package main
 import (
 	"fmt"
 	"os"
-
 	"os/exec"
+    "github.com/gin-gonic/gin"
+	"net/http"
 )
+
+type pkg struct {
+    Name    string  `json:"name"`
+	Version string  `json:"version"`
+}
+
+var pkgs = []pkg{
+    {Name: "github.com/mikefarah/yq", Version: "v4.35.2"},
+    {Name: "github.com/pulumi/pulumi-aws/sdk", Version: "v6.4.0"},
+    {Name: "github.com/pulumi/pulumi-azure-native-sdk/resources", Version: "v2.10.0"},
+}
+
+func getPkgs(c *gin.Context) {
+    c.IndentedJSON(http.StatusOK, pkgs)
+}
+
+func main() {
+    router := gin.Default()
+    router.GET("/pkgs", getPkgs)
+
+    router.Run("localhost:8080")
+}
+
 
 func file_exists(file string) (bool, error) {
 
@@ -18,7 +42,7 @@ func file_exists(file string) (bool, error) {
 
 }
 
-func main() {
+func mainq() {
 
 	// modFile, err := modfile.Parse(goModPath, data, nil)
 	// if err != nil {
